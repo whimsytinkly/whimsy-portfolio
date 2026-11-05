@@ -97,6 +97,40 @@ function generateStarfield() {
 // Generate our universe!
 generateStarfield();
 
+const shootingStar = document.querySelector(".shooting-star");
+const shootingStar2 = shootingStar.cloneNode();
+shootingStar.after(shootingStar2);
+
+function launchShootingStar(star) {
+    const maxX = Math.max(0, window.innerWidth - 500);
+    const maxY = Math.max(0, window.innerHeight - 350);
+
+    const startX = Math.random() * maxX;
+    const startY = Math.random() * maxY;
+
+    star.style.left = `${startX}px`;
+    star.style.top = `${startY}px`;
+
+    star.style.animation = "none";
+    star.offsetWidth;
+    star.style.animation = "shootingStar 2s ease-out forwards";
+}
+
+function scheduleShootingStars() {
+    launchShootingStar(shootingStar);
+
+    // 20% chance of a second shooting star
+    if (Math.random() < 0.2) {
+        setTimeout(() => {
+            launchShootingStar(shootingStar2);
+        }, 300 + Math.random() * 500);
+    }
+
+    const nextDelay = 5000 + Math.random() * 10000;
+    setTimeout(scheduleShootingStars, nextDelay);
+}
+
+setTimeout(scheduleShootingStars, 3000);
 
 function createPortalParticles() {
     const container = document.querySelector(".portal-particles");

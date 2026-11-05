@@ -92,6 +92,45 @@ main {
     }
 }
 
+.shooting-star {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(
+        to left,
+        rgba(184, 169, 217, 0),
+        rgba(143, 174, 216, 0.55),
+        #F3EEDF
+    );
+    border-radius: 50%;
+    filter: drop-shadow(0 0 2px #8FAED8);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes shootingStar {
+    0% {
+        transform: translate(0, 0) rotate(35deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate(500px, 350px) rotate(35deg);
+        opacity: 0;
+    }
+}
+
 /* Welcome section */
 .home-section {
     width: min(1100px, calc(100% - 48px));
