@@ -1,0 +1,74 @@
+
+/* ========================================
+   WHIMSY PORTFOLIO — BASE STYLES
+   ======================================== */
+
+:root {
+    /* Background colours */
+    --color-background: #050914;
+    --color-panel: 16, 26, 48;
+
+    /* Text colours */
+    --color-text: #F3EEDF;
+    --color-text-muted: #A9B9D8;
+
+    /* Accent colours */
+    --color-blue: #8FAED8;
+    --color-lavender: #B8A9D9;
+    --color-gold: #D9C99D;
+
+    /* Panel appearance */
+    --panel-opacity: 0.70;
+    --panel-radius: 16px;
+
+    /* General spacing */
+    --page-padding: 24px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.4s ease;
+}
+
+
+/* Basic reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Page defaults */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    color: var(--color-text);
+
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+
+/* Links */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Images */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* Buttons */
+button {
+    font: inherit;
+    cursor: pointer;
+}

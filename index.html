@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="A little corner of my universe. From the tiniest thought to the wildest dreams.">
+
+    <title>Whimsy | A Little Corner of My Universe</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div id="starfield" aria-hidden="true"></div>
+
+    <!-- Website -->
+    <div class="site-wrapper">
+
+        <!-- Navigation -->
+        <header class="site-header">
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="#resume">Resume</a>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main>
+            <img class="portal-companion" src="assets/images/companion64.gif" alt="" />
+
+            <section id="home" class="home-section">
+
+                <div class="welcome-card">
+
+                    <p class="welcome-intro">A LITTLE CORNER OF MY UNIVERSE</p>
+
+                    <h1>
+                        In a world filled with endless possibilities,
+                        <span>from the tiniest thought to the wildest dreams,</span>
+                        where do you wanna start?
+                    </h1>
+
+                    <p class="welcome-description">
+                        A little curiosity, a little creativity, and a whole lot of code.
+                        Come explore!
+                    </p>
+
+                    <a href="#projects" class="welcome-link">
+                        Explore my projects ✨
+                    </a>
+
+                </div>
+
+                <div class="welcome-constellation">
+
+                    <div class="portal">
+                        <div class="portal-ring"></div>
+                        <div class="portal-wisps">
+                            <svg viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+
+                                <defs>
+                                    <linearGradient id="wispGradient">
+                                        <stop offset="0%" stop-color="#8FAED8" stop-opacity="0" />
+                                        <stop offset="45%" stop-color="#8FAED8" stop-opacity="0.8" />
+                                        <stop offset="75%" stop-color="#B8A9D9" stop-opacity="0.9" />
+                                        <stop offset="100%" stop-color="#B8A9D9" stop-opacity="0" />
+                                    </linearGradient>
+
+                                    <filter id="wispGlow">
+                                        <feGaussianBlur stdDeviation="2.5" />
+                                    </filter>
+                                    <linearGradient id="flowGradient">
+                                        <stop offset="0%" stop-color="#8FAED8" stop-opacity="0.2" />
+                                        <stop offset="50%" stop-color="#E2D9FF" stop-opacity="1" />
+                                        <stop offset="100%" stop-color="#B8A9D9" stop-opacity="0.2" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Left: move towards the rift -->
+                                <path class="wisp wisp-one flow-left"
+                                    d="M 25 175 C 45 205, 65 145, 90 175 S 125 200, 145 175"
+                                    stroke="url(#wispGradient)" />
+
+                                <path class="wisp wisp-four flow-left"
+                                    d="M 65 250 C 95 285, 135 290, 160 265 S 185 245, 200 255"
+                                    stroke="url(#wispGradient)" />
+
+                                <!-- Right: move towards the rift -->
+                                <path class="wisp wisp-two flow-right" d="M 190 150 C 230 115, 260 75, 315 55"
+                                    stroke="url(#wispGradient)" />
+
+                                <path class="wisp wisp-three flow-right" d="M 190 195 C 240 220, 265 265, 320 285"
+                                    stroke="url(#wispGradient)" />
+                            </svg>
+                        </div>
+                        <div class="portal-particles"></div>
+                        <a href="#projects" class="portal-core" aria-label="Explore my projects"></a>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section id="about" class="about-section">
+                <!-- About me will go here -->
+            </section>
+
+            <section id="projects" class="projects-section">
+                <!-- Project universe will go here -->
+            </section>
+
+            <section id="contact" class="contact-section">
+                <!-- Contact details will go here -->
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>Made with a little curiosity and a lot of code ✨</p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
