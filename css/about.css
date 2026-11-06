@@ -594,6 +594,31 @@
     border-color: rgba(184, 169, 217, 0.35);
 }
 
+.galaxy-zoom-controls {
+    position: absolute;
+    top: 12px;
+    right: 52px;
+    z-index: 5;
+    display: flex;
+    gap: 6px;
+}
+
+.galaxy-zoom-controls button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(143, 174, 216, 0.2);
+    border-radius: 8px;
+    background: rgba(20, 29, 52, 0.9);
+    color: rgba(220, 213, 240, 0.9);
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.galaxy-zoom-controls button:hover {
+    background: rgba(91, 108, 165, 0.35);
+}
+
 /* Full-screen galaxy */
 .tech-galaxy.is-fullscreen {
     position: fixed;
@@ -635,7 +660,7 @@ body.galaxy-open {
     left: 50%;
     top: 50%;
     transform: translate(calc(-50% + var(--galaxy-x, 0px)),
-            calc(-50% + var(--galaxy-y, 0px)));
+            calc(-50% + var(--galaxy-y, 0px))) scale(var(--galaxy-zoom, 1));
     cursor: grab;
     touch-action: none;
 }

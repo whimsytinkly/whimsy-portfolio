@@ -257,6 +257,10 @@ if (techGalaxy) {
                     stroke-linejoin="round"/>
             </svg>
         </button>
+        <div class="galaxy-zoom-controls">
+            <button class="galaxy-zoom-out" type="button" aria-label="Zoom out">−</button>
+            <button class="galaxy-zoom-in" type="button" aria-label="Zoom in">+</button>
+        </div>
         <div class="galaxy-world">
             <svg class="constellation-layer"></svg>
             ${galaxyLayout.map(star => `
@@ -415,35 +419,121 @@ document.addEventListener("keydown", event => {
 
 const galaxyWorld = techGalaxy.querySelector(".galaxy-world");
 
+const galaxyZoomIn = techGalaxy.querySelector(".galaxy-zoom-in");
+const galaxyZoomOut = techGalaxy.querySelector(".galaxy-zoom-out");
+
+let galaxyZoom = 1;
+
+function updateGalaxyZoom() {
+    galaxyWorld.style.setProperty("--galaxy-zoom", galaxyZoom);
+}
+
+techGalaxy.addEventListener("wheel", (event) => {
+    event.preventDefault();
+
+    const zoomChange = event.deltaY < 0 ? 0.1 : -0.1;
+
+    galaxyZoom = Math.max(
+        0.6,
+        Math.min(galaxyZoom + zoomChange, 2)
+    );
+
+    updateGalaxyZoom();
+}, { passive: false });
+
+galaxyZoomIn.addEventListener("click", () => {
+    galaxyZoom = Math.min(galaxyZoom + 0.2, 2);
+    updateGalaxyZoom();
+});
+
+galaxyZoomOut.addEventListener("click", () => {
+    galaxyZoom = Math.max(galaxyZoom - 0.2, 0.6);
+    updateGalaxyZoom();
+});
+
 let isDraggingGalaxy = false;
 let galaxyStartX = 0;
 let galaxyStartY = 0;
 let galaxyOffsetX = 0;
 let galaxyOffsetY = 0;
 
-galaxyWorld.addEventListener("pointerdown", (event) => {
-    isDraggingGalaxy = true;
+const galaxyPointers = new Map();
 
-    galaxyStartX = event.clientX - galaxyOffsetX;
-    galaxyStartY = event.clientY - galaxyOffsetY;
+let pinchStartDistance = 0;
+let pinchStartZoom = 1;
+
+function getPinchDistance() {
+    const points = [...galaxyPointers.values()];
+    const dx = points[0].x - points[1].x;
+    const dy = points[0].y - points[1].y;
+
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+galaxyWorld.addEventListener("pointerdown", (event) => {
+    galaxyPointers.set(event.pointerId, {
+        x: event.clientX,
+        y: event.clientY
+    });
 
     galaxyWorld.setPointerCapture(event.pointerId);
+
+    if (galaxyPointers.size === 2) {
+        isDraggingGalaxy = false;
+        pinchStartDistance = getPinchDistance();
+        pinchStartZoom = galaxyZoom;
+    } else if (galaxyPointers.size === 1) {
+        isDraggingGalaxy = true;
+        galaxyStartX = event.clientX - galaxyOffsetX;
+        galaxyStartY = event.clientY - galaxyOffsetY;
+    }
 });
 
 galaxyWorld.addEventListener("pointermove", (event) => {
-    if (!isDraggingGalaxy) return;
+    if (!galaxyPointers.has(event.pointerId)) return;
 
-    galaxyOffsetX = event.clientX - galaxyStartX;
-    galaxyOffsetY = event.clientY - galaxyStartY;
+    galaxyPointers.set(event.pointerId, {
+        x: event.clientX,
+        y: event.clientY
+    });
 
-    galaxyWorld.style.setProperty("--galaxy-x", `${galaxyOffsetX}px`);
-    galaxyWorld.style.setProperty("--galaxy-y", `${galaxyOffsetY}px`);
+    if (galaxyPointers.size >= 2) {
+        const currentDistance = getPinchDistance();
+
+        galaxyZoom = Math.max(
+            0.6,
+            Math.min(
+                pinchStartZoom * currentDistance / pinchStartDistance,
+                2
+            )
+        );
+
+        updateGalaxyZoom();
+        return;
+    }
+
+    if (isDraggingGalaxy) {
+        galaxyOffsetX = event.clientX - galaxyStartX;
+        galaxyOffsetY = event.clientY - galaxyStartY;
+
+        galaxyWorld.style.setProperty("--galaxy-x", `${galaxyOffsetX}px`);
+        galaxyWorld.style.setProperty("--galaxy-y", `${galaxyOffsetY}px`);
+    }
 });
 
-galaxyWorld.addEventListener("pointerup", () => {
-    isDraggingGalaxy = false;
-});
+function endGalaxyPointer(event) {
+    galaxyPointers.delete(event.pointerId);
 
-galaxyWorld.addEventListener("pointercancel", () => {
-    isDraggingGalaxy = false;
-});
+    if (galaxyPointers.size === 1) {
+        const remainingPointer = [...galaxyPointers.values()][0];
+
+        isDraggingGalaxy = true;
+        galaxyStartX = remainingPointer.x - galaxyOffsetX;
+        galaxyStartY = remainingPointer.y - galaxyOffsetY;
+    } else {
+        isDraggingGalaxy = false;
+    }
+}
+
+galaxyWorld.addEventListener("pointerup", endGalaxyPointer);
+galaxyWorld.addEventListener("pointercancel", endGalaxyPointer);
