@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little About Me</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
+</head>
+
+<body>
+
+    <!-- About page content goes here -->
+    <!-- Background -->
+    <div id="starfield" aria-hidden="true"></div>
+    <div class="shooting-star" aria-hidden="true"></div>
+
+    <!-- Website -->
+    <div class="site-wrapper">
+
+        <!-- Navigation -->
+        <header class="site-header">
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="index.html#projects">Playground</a>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main>
+            <img class="companion" src="assets/images/companion64.gif" alt="" />
+            <section class="about-section">
+
+                <div class="about-layout">
+
+                    <!-- Left column -->
+                    <div class="about-left">
+
+                        <!-- Avatar + introduction -->
+                        <section class="about-intro">
+
+                            <div class="about-avatar">
+                                <img src="assets/images/companion512.gif" alt="My little Mimikyu-inspired avatar">
+                            </div>
+
+                            <div class="about-intro-text">
+                                <h2>Hi there!</h2>
+                                <!-- Introduction goes here -->
+                                <p>WhimsyTinkly here! </p>
+                                <p>A software engineer who enjoys exploring ideas, solving little mysteries, and turning
+                                    'what if?' into something real.
+                                </p>
+                            </div>
+
+                        </section>
+
+                        <!-- Into My Mind -->
+                        <section class="about-mind">
+                            <h2>So, what's on my mind?</h2>
+
+                            <div class="mind-grid" id="mind-grid">
+                                <!-- Cards will be generated from aboutConstants.js -->
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- Right column -->
+                    <div class="about-right">
+
+                        <!-- My Journey + Tech Galaxy -->
+                        <section class="about-journey">
+                            <h2>My Journey</h2>
+
+                            <!-- Chapter selector -->
+                            <div class="journey-timeline" id="journey-timeline">
+                            </div>
+
+                            <!-- Chapter content -->
+                            <div class="journey-card" id="journey-card">
+                                <div class="journey-card-content" id="journey-card-content">
+                                    <span class="journey-year" id="journey-year"></span>
+                                    <h3 id="journey-title"></h3>
+                                    <p id="journey-description"></p>
+                                    <p class="journey-quote" id="journey-quote"></p>
+                                </div>
+                            </div>
+
+                            <!-- Navigation -->
+                            <div class="journey-navigation">
+                                <button type="button" id="journey-prev" aria-label="Previous chapter">
+                                    ← Previous
+                                </button>
+                                <button type="button" id="journey-next" aria-label="Next chapter">
+                                    Next →
+                                </button>
+                            </div>
+
+                            <!-- Technology galaxy -->
+                            <div class="tech-galaxy" id="tech-galaxy">
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>Made with a little curiosity and a lot of code ✨</p>
+        </footer>
+
+    </div>
+
+    <!-- About page scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/aboutConstants.js"></script>
+    <script src="js/journeyConstants.js"></script>
+    <script src="js/about.js"></script>
+</body>
+
+</html>

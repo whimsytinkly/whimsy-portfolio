@@ -97,6 +97,7 @@ function generateStarfield() {
 // Generate our universe!
 generateStarfield();
 
+// Regenerate the shooting star every hour
 const shootingStar = document.querySelector(".shooting-star");
 const shootingStar2 = shootingStar.cloneNode();
 shootingStar.after(shootingStar2);
@@ -132,46 +133,45 @@ function scheduleShootingStars() {
 
 setTimeout(scheduleShootingStars, 3000);
 
-function createPortalParticles() {
-    const container = document.querySelector(".portal-particles");
-    const particleCount = 18;
 
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement("div");
-        particle.classList.add("portal-particle");
+// Companion hover effect
+const companion = document.querySelector(".companion");
 
-        const size = 1 + Math.random() * 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
+const interactiveSelector = [
+    "a",
+    "button",
+    "input",
+    "select",
+    "textarea",
+    "label",
+    "summary",
+    "[role='button']",
+    "[role='link']",
+    "[onclick]",
+    "[tabindex]:not([tabindex='-1'])",
+    "[contenteditable='true']"
+].join(",");
 
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        const driftX = (Math.random() - 0.5) * 24;
-        const driftY = (Math.random() - 0.5) * 24;
+const mimiSrc = "assets/images/companion64.gif";
+const wynautSrc = "assets/images/wynaut64.gif";
 
-        particle.style.setProperty("--drift-x", `${driftX}px`);
-        particle.style.setProperty("--drift-y", `${driftY}px`);
-        particle.style.setProperty("--particle-speed", `${3 + Math.random() * 5}s`); particle.style.animationDelay = `${-Math.random() * 8}s`;
+document.addEventListener("mousemove", (event) => {
+    const target = event.target.closest(interactiveSelector);
 
-        container.appendChild(particle);
+    if (target) {
+        const isWhatIfCard = target.closest('[data-card-id="what-if"]');
+
+        companion.src = isWhatIfCard ? wynautSrc : mimiSrc;
+
+        companion.style.left = `${event.clientX}px`;
+        companion.style.top = `${event.clientY}px`;
+        companion.style.opacity = "1";
+    } else {
+        companion.style.opacity = "0";
+        companion.src = mimiSrc;
     }
-}
-
-createPortalParticles();
-
-
-const portalcore = document.querySelector(".portal-core");
-const companion = document.querySelector(".portal-companion");
-
-portalcore.addEventListener("mouseenter", () => {
-    companion.style.opacity = "1";
 });
 
-portalcore.addEventListener("mouseleave", () => {
+document.addEventListener("mouseleave", () => {
     companion.style.opacity = "0";
-});
-
-portalcore.addEventListener("mousemove", (event) => {
-    companion.style.left = `${event.clientX}px`;
-    companion.style.top = `${event.clientY}px`;
 });

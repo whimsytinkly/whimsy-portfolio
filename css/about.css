@@ -1,0 +1,605 @@
+/* About page layout */
+.about-section {
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 0.4fr 0.6fr;
+    gap: 48px;
+}
+
+.about-left,
+.about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.about-left {
+    position: relative;
+    padding-right: 24px;
+}
+
+.about-left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -24px;
+    width: 1px;
+    height: 100%;
+
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(143, 174, 216, 0.3) 15%,
+            rgba(143, 174, 216, 0.3) 85%,
+            transparent);
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .about-left {
+        padding-right: 0;
+    }
+
+    .about-left::after {
+        display: none;
+    }
+}
+
+
+.about-intro {
+    min-height: 220px;
+}
+
+.about-mind {
+    min-height: 300px;
+}
+
+.about-journey {
+    min-height: 300px;
+}
+
+/* About section headings */
+.about-left h2,
+.about-right h2 {
+    margin: 0 0 20px;
+
+    color: #d8d0f2;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.about-intro p {
+    color: rgba(220, 220, 235, 0.78);
+    line-height: 1.8;
+}
+
+
+/* About intro layout */
+.about-intro {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: -10px;
+}
+
+.about-avatar {
+    flex: 0 0 250px;
+}
+
+.about-avatar img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.about-intro-text {
+    flex: 1;
+    min-width: 0;
+    padding: 5px;
+}
+
+/* Mind grid layout */
+.mind-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.mind-card {
+    position: relative;
+    height: 200px;
+    padding: 16px;
+    border: 1px solid rgba(143, 174, 216, 0.15);
+    border-radius: var(--panel-radius);
+    background: rgba(var(--color-panel), var(--panel-opacity));
+    color: var(--color-text);
+    text-align: left;
+    overflow: visible;
+    transition: transform var(--transition-fast);
+    z-index: 1;
+}
+
+.mind-card:hover {
+    transform: translateY(-4px);
+    z-index: 10;
+}
+
+/* Both states occupy the same space */
+.mind-card-front,
+.mind-card-back {
+    position: absolute;
+    inset: 16px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity var(--transition-normal),
+        transform var(--transition-normal);
+}
+
+/* Default state */
+.mind-card-front {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+}
+
+.mind-card-front .mind-card-icon {
+    font-size: 30px;
+}
+
+.mind-card-front h3 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+.mind-card-front p {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* Revealed state */
+.mind-card-back {
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    gap: 12px;
+}
+
+.mind-card-back .mind-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mind-card-back .mind-card-heading span {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.mind-card-back h3 {
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.mind-card-back p {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* Toggle states */
+.mind-card.revealed .mind-card-front {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+}
+
+.mind-card.revealed .mind-card-back {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Easter egg tooltip */
+.typo-easter-egg {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.typo-message {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 8px);
+    z-index: 50;
+
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: rgba(16, 26, 48, 0.95);
+    color: var(--color-gold);
+    font-size: 0.75rem;
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-fast);
+}
+
+.typo-easter-egg:hover .typo-message,
+.typo-easter-egg:focus .typo-message,
+.typo-easter-egg:focus-within .typo-message {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Journey timeline */
+.journey-timeline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 24px 12px;
+}
+
+.journey-timeline::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(143, 174, 216, 0.25);
+    transform: translateY(-50%);
+}
+
+/* Journey milestones */
+.journey-milestone {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: rgba(220, 225, 240, 0.5);
+
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.journey-milestone-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    background: #39465f;
+    border: 2px solid #7185a8;
+
+    transition: all 0.3s ease;
+}
+
+.journey-milestone-year {
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.journey-milestone:hover,
+.journey-milestone.active {
+    color: #e5dcff;
+}
+
+.journey-milestone.active .journey-milestone-dot {
+    background: #c5b5ff;
+    border-color: #e5dcff;
+    box-shadow: 0 0 12px rgba(197, 181, 255, 0.8);
+}
+
+/* Journey chapter card */
+.journey-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    padding: 28px;
+    height: 230px;
+    box-sizing: border-box;
+
+    background: rgba(20, 29, 52, 0.7);
+    border: 1px solid rgba(143, 174, 216, 0.2);
+    border-radius: 16px;
+
+    box-shadow:
+        0 0 24px rgba(100, 120, 180, 0.08),
+        inset 0 0 20px rgba(100, 120, 180, 0.04);
+}
+
+.journey-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.journey-year {
+    color: #b9a8ed;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.journey-card h3 {
+    margin: 0;
+    color: #eee9ff;
+    font-size: 1.4rem;
+}
+
+.journey-card p {
+    margin: 0;
+    line-height: 1.7;
+    color: rgba(230, 232, 245, 0.85);
+}
+
+.journey-card .journey-quote {
+    margin-top: 6px;
+    color: #c5b5ff;
+    font-style: italic;
+}
+
+/* Journey navigation */
+.journey-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+}
+
+.journey-navigation button {
+    padding: 9px 16px;
+
+    color: #c5b5ff;
+    font-size: 0.85rem;
+
+    background: rgba(143, 174, 216, 0.08);
+    border: 1px solid rgba(143, 174, 216, 0.2);
+    border-radius: 20px;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.journey-navigation button:hover:not(:disabled) {
+    color: #eee9ff;
+    background: rgba(143, 174, 216, 0.16);
+    border-color: rgba(197, 181, 255, 0.5);
+    box-shadow: 0 0 12px rgba(143, 174, 216, 0.12);
+}
+
+.journey-navigation button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Journey chapter transitions */
+.journey-card-content {
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+.journey-card-content.slide-out-left {
+    opacity: 0;
+    transform: translateX(-35px);
+}
+
+.journey-card-content.slide-out-right {
+    opacity: 0;
+    transform: translateX(35px);
+}
+
+.journey-card-content.slide-in-left {
+    opacity: 0;
+    transform: translateX(-35px);
+}
+
+.journey-card-content.slide-in-right {
+    opacity: 0;
+    transform: translateX(35px);
+}
+
+
+/* Technology galaxy */
+.tech-galaxy {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    margin-top: 24px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(ellipse at 50% 50%,
+            rgba(91, 108, 165, 0.12),
+            transparent 70%),
+        rgba(13, 20, 39, 0.88);
+
+    border: 1px solid rgba(143, 174, 216, 0.16);
+    border-radius: 16px;
+}
+
+/* Technology stars */
+/* Technology stars */
+.tech-star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition:
+        opacity 0.5s ease,
+        box-shadow 0.5s ease,
+        background 0.5s ease;
+}
+
+/* Usage brightness */
+.tech-star[data-usage="0"] {
+    background: #625b78;
+    opacity: 0.12;
+    box-shadow: 0 0 2px #625b78;
+}
+
+.tech-star[data-usage="1"] {
+    background: #897da9;
+    opacity: 0.35;
+    box-shadow: 0 0 4px #897da9;
+}
+
+.tech-star[data-usage="2"] {
+    background: #a293c8;
+    opacity: 0.55;
+    box-shadow:
+        0 0 4px #a293c8,
+        0 0 8px rgba(162, 147, 200, 0.4);
+}
+
+.tech-star[data-usage="3"] {
+    background: #b8a9d9;
+    opacity: 0.75;
+    box-shadow:
+        0 0 5px #b8a9d9,
+        0 0 12px rgba(184, 169, 217, 0.55);
+}
+
+.tech-star[data-usage="4"] {
+    background: #d0c2f0;
+    opacity: 0.9;
+    box-shadow:
+        0 0 6px #d0c2f0,
+        0 0 14px rgba(208, 194, 240, 0.7);
+}
+
+.tech-star[data-usage="5"] {
+    background: #eee5ff;
+    opacity: 1;
+    box-shadow:
+        0 0 7px #eee5ff,
+        0 0 16px rgba(208, 194, 240, 0.85),
+        0 0 24px rgba(184, 169, 217, 0.5);
+}
+
+/* Constellation connections */
+.constellation-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.constellation-layer line {
+    stroke: rgba(184, 169, 217, 0.22);
+    stroke-width: 1;
+    stroke-dasharray: 2 5;
+    stroke-linecap: round;
+}
+
+/* Technology labels */
+.tech-label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: rgba(220, 213, 240, 0.85);
+    font-size: 10px;
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.4s ease;
+}
+
+/* Show labels for active technologies */
+.tech-star[data-usage]:not([data-usage="0"]) .tech-label {
+    opacity: 1;
+}
+
+/* Galaxy expand button */
+.galaxy-expand {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+
+    color: rgba(208, 194, 240, 0.7);
+    background: rgba(184, 169, 217, 0.08);
+    border: 1px solid rgba(184, 169, 217, 0.15);
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.galaxy-expand svg {
+    width: 100%;
+    height: 100%;
+}
+
+.galaxy-expand:hover {
+    color: #eee5ff;
+    background: rgba(184, 169, 217, 0.18);
+    border-color: rgba(184, 169, 217, 0.35);
+}
+
+/* Full-screen galaxy */
+.tech-galaxy.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    margin: 0;
+
+    border-radius: 0;
+    border: none;
+    background:
+        radial-gradient(ellipse at 50% 50%,
+            rgba(91, 108, 165, 0.16),
+            transparent 75%),
+        rgba(8, 13, 29, 0.98);
+}
+
+/* Prevent background scrolling */
+body.galaxy-open {
+    overflow: hidden;
+}
+
+/* Full-screen galaxy labels */
+.tech-galaxy.is-fullscreen .tech-label {
+    opacity: 1;
+    font-size: 18px;
+    left: 20px;
+}
