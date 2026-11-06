@@ -257,21 +257,23 @@ if (techGalaxy) {
                     stroke-linejoin="round"/>
             </svg>
         </button>
-        <svg class="constellation-layer"></svg>
-        ${galaxyLayout.map(star => `
-            <div
-                class="tech-star"
-                data-tech-id="${star.id}"
-                data-usage="0"
-                style="
-                    left: ${star.x}%;
-                    top: ${star.y}%;
-                ">
-                <span class="tech-label">
-                    ${techStack.find(tech => tech.id === star.id).name}
-                </span>
-            </div>
-        `).join("")}
+        <div class="galaxy-world">
+            <svg class="constellation-layer"></svg>
+            ${galaxyLayout.map(star => `
+                <div
+                    class="tech-star"
+                    data-tech-id="${star.id}"
+                    data-usage="0"
+                    style="
+                        left: ${star.x}%;
+                        top: ${star.y}%;
+                    ">
+                    <span class="tech-label">
+                        ${techStack.find(tech => tech.id === star.id).name}
+                    </span>
+                </div>
+            `).join("")}
+        </div>
     `;
 }
 
@@ -370,6 +372,14 @@ if (constellationLayer) {
 // Galaxy fullscreen toggle
 const galaxyExpand = techGalaxy.querySelector(".galaxy-expand");
 
+function centreGalaxyWorld() {
+    galaxyOffsetX = 0;
+    galaxyOffsetY = 0;
+
+    galaxyWorld.style.setProperty("--galaxy-x", "0px");
+    galaxyWorld.style.setProperty("--galaxy-y", "0px");
+}
+
 function toggleGalaxyFullscreen() {
     const isFullscreen = techGalaxy.classList.toggle("is-fullscreen");
 
@@ -390,6 +400,7 @@ function toggleGalaxyFullscreen() {
             ? "M8 3v5H3 M16 3v5h5 M3 16h5v5 M21 16h-5v5"
             : "M8 3H3v5 M16 3h5v5 M3 16v5h5 M21 16v5h-5"
     );
+    centreGalaxyWorld();
 }
 
 galaxyExpand.addEventListener("click", toggleGalaxyFullscreen);
@@ -400,4 +411,39 @@ document.addEventListener("keydown", event => {
         techGalaxy.classList.contains("is-fullscreen")) {
         toggleGalaxyFullscreen();
     }
+});
+
+const galaxyWorld = techGalaxy.querySelector(".galaxy-world");
+
+let isDraggingGalaxy = false;
+let galaxyStartX = 0;
+let galaxyStartY = 0;
+let galaxyOffsetX = 0;
+let galaxyOffsetY = 0;
+
+galaxyWorld.addEventListener("pointerdown", (event) => {
+    isDraggingGalaxy = true;
+
+    galaxyStartX = event.clientX - galaxyOffsetX;
+    galaxyStartY = event.clientY - galaxyOffsetY;
+
+    galaxyWorld.setPointerCapture(event.pointerId);
+});
+
+galaxyWorld.addEventListener("pointermove", (event) => {
+    if (!isDraggingGalaxy) return;
+
+    galaxyOffsetX = event.clientX - galaxyStartX;
+    galaxyOffsetY = event.clientY - galaxyStartY;
+
+    galaxyWorld.style.setProperty("--galaxy-x", `${galaxyOffsetX}px`);
+    galaxyWorld.style.setProperty("--galaxy-y", `${galaxyOffsetY}px`);
+});
+
+galaxyWorld.addEventListener("pointerup", () => {
+    isDraggingGalaxy = false;
+});
+
+galaxyWorld.addEventListener("pointercancel", () => {
+    isDraggingGalaxy = false;
 });

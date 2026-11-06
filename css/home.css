@@ -396,3 +396,17 @@
         opacity: var(--wisp-opacity);
     }
 }
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    .home-section {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 16px;
+    }
+
+    .welcome-constellation {
+        transform: none;
+        min-height: 280px;
+    }
+}

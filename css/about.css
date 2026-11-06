@@ -50,6 +50,26 @@
     .about-left::after {
         display: none;
     }
+
+    .about-intro {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .about-avatar {
+        flex: none;
+        width: 180px;
+    }
+
+    .about-intro-text {
+        width: 100%;
+    }
+
+    .mind-card-back {
+        overflow-y: auto;
+    }
 }
 
 
@@ -92,6 +112,7 @@
 
 .about-avatar {
     flex: 0 0 250px;
+    width: 250px;
 }
 
 .about-avatar img {
@@ -239,6 +260,8 @@
     opacity: 1;
     visibility: visible;
 }
+
+
 
 /* Journey timeline */
 .journey-timeline {
@@ -439,7 +462,6 @@
 }
 
 /* Technology stars */
-/* Technology stars */
 .tech-star {
     position: absolute;
     width: 8px;
@@ -602,4 +624,27 @@ body.galaxy-open {
     opacity: 1;
     font-size: 18px;
     left: 20px;
+}
+
+.galaxy-world {
+    position: absolute;
+    --galaxy-width: 691px;
+    --galaxy-height: 320px;
+    width: var(--galaxy-width);
+    height: var(--galaxy-height);
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% + var(--galaxy-x, 0px)),
+            calc(-50% + var(--galaxy-y, 0px)));
+    cursor: grab;
+    touch-action: none;
+}
+
+.tech-galaxy.is-fullscreen .galaxy-world {
+    --galaxy-width: 1000px;
+    --galaxy-height: 550px;
+}
+
+.galaxy-world:active {
+    cursor: grabbing;
 }
