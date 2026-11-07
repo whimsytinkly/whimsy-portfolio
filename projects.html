@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <!-- styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/projects.css">
+</head>
+
+<body>
+
+    <!-- Projects page content goes here -->
+    <!-- Background -->
+    <div id="starfield" aria-hidden="true"></div>
+    <div class="shooting-star" aria-hidden="true"></div>
+
+    <!-- Website -->
+    <div class="site-wrapper">
+
+        <!-- Navigation -->
+        <header class="site-header">
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main>
+            <img class="companion" src="assets/images/companion64.gif" alt="" />
+            <section class="projects-section">
+                <div class="projects-intro">
+                    <h1>When curiosity meets code.</h1>
+                    <p>Little ideas, curious experiments, and things I've made.</p>
+                </div>
+                <div class="projects-portals"></div>
+                <dialog class="project-modal" id="project-modal">
+                    <div class="project-modal-content">
+                        <button class="modal-close" type="button" aria-label="Close">
+                            &times;
+                        </button>
+
+                        <div class="modal-heading">
+                            <h2 id="modal-title"></h2>
+                            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer"
+                                data-tooltip="Come on!" aria-label="Come on!">↗</a>
+                        </div>
+                        <p id="modal-description"></p>
+                        <p id="modal-quote"></p>
+
+                        <div id="modal-tech-stack"></div>
+                    </div>
+                </dialog>
+            </section>
+
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>Made with a little curiosity and a lot of code ✨</p>
+        </footer>
+
+    </div>
+
+    <!-- Projects page scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/projectsConstants.js"></script>
+    <script src="js/projects.js"></script>
+</body>
+
+</html>

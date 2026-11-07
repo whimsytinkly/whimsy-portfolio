@@ -149,7 +149,8 @@ const interactiveSelector = [
     "[role='link']",
     "[onclick]",
     "[tabindex]:not([tabindex='-1'])",
-    "[contenteditable='true']"
+    "[contenteditable='true']",
+    ".is-interactive"
 ].join(",");
 
 const mimiSrc = "assets/images/companion64.gif";
