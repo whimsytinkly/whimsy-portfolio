@@ -30,6 +30,16 @@ const projects = [
         status: "completed"
     },
     {
+        id: "tb-expense-splitter",
+        name: "TB Expense Splitter",
+        description: "Split expenses with friends easily!",
+        quote: "Finally, a way to split those Taobao shopping hauls!",
+        icon: "🛒",
+        techStack: ["HTML", "CSS", "JavaScript"],
+        url: "https://whimsytinkly.github.io/TBExpenseSplitter/",
+        status: "completed"
+    },
+    {
         id: "wip",
         name: "?",
         description: "Under construction!",
